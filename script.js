@@ -194,8 +194,11 @@ const favorites = document.getElementById("favorites");
 const filterDropdown = document.getElementById("filterDropdown");
 const sortYear = document.querySelector(".sort-btn");
 const sortYearDescending = document.querySelector(".sortTwo-btn");
+const searchInput = document.getElementById("search-input");
 const searchBtn = document.getElementById("search-btn");
-const searchResult = document.getElementById("result");
+const ratingAscending = document.getElementById("sortAscending");
+const sortDescending = document.getElementById("sortDescending");
+const checkbox21stCentury = document.getElementById("checkbox-21st-century");
 
 const loadBooks = (bookArray) => {
   container.innerHTML = "";
@@ -205,11 +208,14 @@ const loadBooks = (bookArray) => {
     <div class="card">
       <p>${book.title}</p>
       <img src="${book.image}" art="${book.title}">
-      <p>Rating: ${book.rating}</p>
+      <p><mark>Rating: ${book.rating}</mark></p>
       <button onclick="addToFaves('${book.title}')">Add to favorites</button>
-      <p>${book.description}</p>
+      <p class="cardText">${book.description}</p>
+      <div class="card-end"
       <p>${book.author}</p>
+      <p>${book.genre}</p>
       <p>${book.year}</p>
+      </div>
     </div>
     `;
   });
@@ -264,4 +270,61 @@ const sortDescendingAndDisplay = () => {
 sortYearDescending.addEventListener("click", sortDescendingAndDisplay);
 sortDescendingAndDisplay();
 
+// Ascending by year
+const sortByRating = () => {
+  const byRating = books.sort((a, b) => b.rating - a.rating);
+  console.log(byRating);
+  loadBooks(byRating);
+};
+ratingAscending.addEventListener("click", sortByRating);
+
+// Descending by year
+const sortDescByRating = () => {
+  const byRatingDesc = books.sort((a, b) => a.rating - b.rating);
+  console.log(byRatingDesc);
+  loadBooks(byRatingDesc);
+};
+sortDescending.addEventListener("click", sortDescByRating);
+
 // Search bar
+const searchBooks = () => {
+  const searchTerm = searchInput.value.toLowerCase();
+  const matchingBooks = books.filter((book) =>
+    book.title.toLowerCase().includes(searchTerm)
+  );
+
+  if (matchingBooks.length > 0) {
+    loadBooks(matchingBooks);
+    searchResult.innerText = `${matchingBooks.length} matching books found.`;
+  } else {
+    container.innerHTML = "No matching books found.";
+    searchResult.innerText = "No matching books found.";
+  }
+};
+searchBtn.addEventListener("click", searchBooks);
+
+searchInput.addEventListener("keypress", function (event) {
+  if (event.key === 'Enter') {
+    searchBooks();
+  }
+});
+
+// 21st century
+const checkBoxFilter = () => {
+  const value = filterDropdown.value;
+  let filteredList;
+
+  if (value === "all") {
+    filteredList = books;
+  } else {
+    filteredList = books.filter((book) => 
+    book.genre === value);
+  }
+
+  if (checkbox21stCentury.checked) {
+    filteredList = filteredList.filter((book) => 
+    book.year >= 2000);
+  }
+  loadBooks(filteredList);
+};
+checkbox21stCentury.addEventListener("change", checkBoxFilter);

@@ -14,12 +14,12 @@
   <h1>Library Project</h1>
   <div class="search-box">
     <div class="row">
-      <input type="search" id="search" placeholder="Search...">
+      <input type="text" id="search-input" placeholder="Search...">
       <button id="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
     </div>
   </div>
 </header>
-  <p style="margin-left: 20px;">Browse through the books and choose your favourite.</p>
+<p style="margin-left: 20px;">Browse through the books and choose your favourite.</p>
 
 <div class="filter-row">
   <select id="filterDropdown">
@@ -32,16 +32,18 @@
     <option value="Mystery">Mystery</option>
     <option value="Dystopian">Dystopian</option>
   </select>
-
+  
   <button class="sort-btn">Filter<i class="fa light fa-arrow-up-1-9" style="color: #000000;"></i></button>
   <button class="sortTwo-btn">Filter<i class="fa light fa-arrow-down-1-9" style="color: #000000;"></i></button>
+  <button class="sort-ascending" id="sortAscending">Higher rating<i class="fa regular fa-arrow-up-short-wide" style="color: #000000;" aria-hidden="true"></i></button>
+  <button class="sort-descending" id="sortDescending">Lower rating<i class="fa regular fa-arrow-down-short-wide" style="color: #000000;" aria-hidden="true"></i></button>
+  <div id="filter-21st-century">
+    <input type="checkbox" id="checkbox-21st-century">
+    <label for="checkbox-21st-century">Show 21st Century Books</label>
+  </div>
 </div>
 
   <section id="container"></section>
-
-  <ul id="result">
-    <li></li>
-  </ul>
 
   <section id="favorites"></section>
 
